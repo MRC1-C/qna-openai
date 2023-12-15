@@ -13,9 +13,9 @@ const Home = () => {
     e.preventDefault();
     setLoading(true)
     setOutput('')
-    axios.post('/api/chat', { input: inputBody + "nếu câu bạn không đủ kiến thức hoặc không biết thì hãy trả về đúng 1 từ là 'TRAGOOGLE' không trả về cái gì hết ngoài từ đó" })
+    axios.post('/api/chat', { input: inputBody + "? .Nếu bạn không đủ kiến thức hoặc không thể cung cấp thì hãy trả về đúng 1 từ là 'TRAGOOGLE' không trả về cái gì hết ngoài từ đó" })
       .then(r => {
-        if (!r.data.toString().includes("TRAGOOGLE")) {
+        if (!r.data.toString().toLowerCase().includes("TRAGOOGLE".toLowerCase())) {
           setLoading(false)
           setOutput(r.data)
         }
@@ -32,7 +32,7 @@ const Home = () => {
             }
           })
             .then((response: any) => {
-              axios.post('/api/chat', { input: `câu hỏi của tôi là "${inputBody}" và trả lời là "${response.data?.organic[0].snippet}" tạo thành câu hoàn chỉnh dựa trên câu hỏi và câu trả lời` })
+              axios.post('/api/chat', { input: `câu hỏi của tôi là "${inputBody}" và trả lời là "${response.data?.organic[0]?.snippet}" từ 2 cái đó tạo thành câu hoàn chỉnh dựa trên câu hỏi và câu trả lời` })
                 .then(anwer => {
                   setLoading(false)
                   setOutput(anwer.data)
