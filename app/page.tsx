@@ -15,7 +15,7 @@ const Home = () => {
     setOutput('')
     axios.post('/api/chat', { input: inputBody + "nếu câu bạn không đủ kiến thức hoặc không biết thì hãy trả về đúng 1 từ là 'TRAGOOGLE' không trả về cái gì hết ngoài từ đó" })
       .then(r => {
-        if (!r.data.toString().includes("TRAGOOGLE")||!r.data.toString().includes("'TRAGOOGLE'")) {
+        if (!r.data.toString().includes("TRAGOOGLE")) {
           setLoading(false)
           setOutput(r.data)
         }
