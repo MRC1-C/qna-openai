@@ -1,11 +1,6 @@
 import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 
-export const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  };
   
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -21,7 +16,11 @@ export async function OPTIONS(request: Request) {
     }
     return new Response(null, {
       status: 204,
-      headers:corsHeaders
+      headers:{
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      }
     });
   }
 
@@ -38,7 +37,11 @@ export async function POST(req: any) {
     const stream = OpenAIStream(response)
 
     return new StreamingTextResponse(stream, {
-        headers: corsHeaders,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          },
     })
 
 }
